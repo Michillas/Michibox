@@ -22,7 +22,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: 'michibox - 漫画スタイル',
+  title: 'michibox - 映画猫の箱',
   description: 'Track the movies and TV shows you have seen and want to watch in manga style',
   generator: 'v0.app',
   icons: {

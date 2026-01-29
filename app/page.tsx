@@ -164,7 +164,7 @@ export default function Home() {
         <div className="bg-secondary border-b-2 border-border px-3 sm:px-4 lg:px-6 py-1.5">
           <div className="mx-auto max-w-7xl flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              michibox.exe — 漫画スタイル
+              michibox.exe — 映画猫の箱
             </span>
             <div className="flex items-center gap-1">
               <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">
@@ -190,7 +190,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base sm:text-lg font-black text-foreground leading-none manga-title">michibox</span>
-                <span className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">漫画スタイル</span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">映画猫の箱</span>
               </div>
             </Link>
 
