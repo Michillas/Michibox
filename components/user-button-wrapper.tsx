@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { UserButton as NeonUserButton } from '@neondatabase/auth/react'
 import { useRouter } from 'next/navigation'
 
-export function UserButton({ size }: { size?: 'sm' | 'md' | 'lg' | 'icon' }) {
+export function UserButton({ size }: { size?: "default" | "sm" | "lg" | "icon" }) {
   const router = useRouter()
 
   useEffect(() => {
