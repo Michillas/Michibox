@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Film, Tv, ChevronRight, Star, Calendar, Eye, List } from 'lucide-react'
+import { ChevronRight, Eye, List } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TitleGrid } from '@/components/title-grid'
 import type { IMDBTitle } from '@/lib/imdb'

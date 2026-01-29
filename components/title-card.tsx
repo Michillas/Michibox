@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { formatRuntime, formatType, type IMDBTitle } from '@/lib/imdb'
-import { cn } from '@/lib/utils'
 
 interface TitleCardProps {
   title: IMDBTitle

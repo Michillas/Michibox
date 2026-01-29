@@ -80,7 +80,7 @@ export async function searchTitles(params: SearchParams = {}): Promise<IMDBSearc
     clearTimeout(timeoutId)
     if (!response.ok) throw new Error('Failed to fetch titles')
     return response.json()
-  } catch (error) {
+  } catch {
     clearTimeout(timeoutId)
     // Return empty result instead of throwing
     return { titles: [] }
@@ -118,7 +118,7 @@ export async function searchByKeyword(keyword: string, limit: number = 20): Prom
     clearTimeout(timeoutId)
     if (!response.ok) throw new Error('Failed to search titles')
     return response.json()
-  } catch (error) {
+  } catch {
     clearTimeout(timeoutId)
     return { titles: [] }
   }

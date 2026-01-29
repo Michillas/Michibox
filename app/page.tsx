@@ -2,12 +2,11 @@
 
 import React from "react"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import useSWR, { mutate } from 'swr'
-import { Search, User, Loader2, LogOut, X, Minus } from 'lucide-react'
+import { Search, User, Loader2, X, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -16,7 +15,6 @@ import { HeroSection } from '@/components/hero-section'
 import { ContentRow } from '@/components/content-row'
 import { TitleGrid } from '@/components/title-grid'
 import { MarkWatchedDialog } from '@/components/mark-watched-dialog'
-import { authClient } from '@/lib/auth/client'
 import type { IMDBTitle } from '@/lib/imdb'
 import type { WatchlistItem, WatchedItem } from '@/lib/db'
 
@@ -29,9 +27,6 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false)
   const [loadingId, setLoadingId] = useState<string | null>(null)
   const [watchedDialogTitle, setWatchedDialogTitle] = useState<IMDBTitle | null>(null)
-  const router = useRouter()
-
-  const session = authClient.useSession()
 
   const { data: watchlist } = useSWR<WatchlistItem[]>('/api/watchlist', fetcher, {
     revalidateOnFocus: false,
@@ -149,12 +144,6 @@ export default function Home() {
     if (watchedDialogTitle) {
       addToWatched(watchedDialogTitle, rating)
     }
-  }
-
-  const handleLogout = async () => {
-    await authClient.signOut()
-    router.push('/auth/sign-in')
-    router.refresh()
   }
 
   return (

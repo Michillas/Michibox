@@ -18,14 +18,12 @@ export default function CustomAuthPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [step, setStep] = useState<'auth' | 'verify'>('auth');
-  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   // Check session on mount (for verification link flow)
   useEffect(() => {
     authClient.getSession().then(({ data }) => {
       if (data?.user) {
-        setUser(data.user);
         // If already signed in, redirect to profile
         router.push('/profile');
       }

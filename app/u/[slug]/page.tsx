@@ -2,16 +2,14 @@
 
 import React from "react"
 
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSWR from 'swr'
-import { ArrowLeft, User, Lock, Share2, Search, Minus, X, LogIn } from 'lucide-react'
+import { ArrowLeft, Lock, Share2, Minus, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { useToast } from '@/hooks/use-toast'
-import { ProfileHeader } from '@/components/profile-header'
 import { TopSeriesShowcase } from '@/components/top-series-showcase'
 import { ContentSection } from '@/components/content-section'
 import { UserButton } from '@/components/user-button-wrapper'
@@ -33,7 +31,6 @@ interface UserProfile {
 
 export default function PublicProfilePage() {
   const params = useParams()
-  const router = useRouter()
   const slug = params.slug as string
   const { toast } = useToast()
   
@@ -75,7 +72,7 @@ export default function PublicProfilePage() {
           </div>
           <h1 className="text-2xl font-bold">Profile Not Found</h1>
           <p className="text-muted-foreground">
-            This profile doesn't exist or is private.
+            This profile does not exist or is private.
           </p>
           <Link href="/">
             <Button>
@@ -99,8 +96,6 @@ export default function PublicProfilePage() {
     )
   }
 
-  const watchedIds = new Set(watched?.map(w => w.imdb_id) ?? [])
-  const topSeriesIds = topSeries?.map(t => t.imdb_id) ?? []
   const userRatings: Record<string, number | null> = {}
   watched?.forEach(w => { userRatings[w.imdb_id] = w.user_rating })
 
@@ -243,7 +238,7 @@ export default function PublicProfilePage() {
                         title: "Link copied!",
                         description: "Profile URL copied to clipboard",
                       })
-                    } catch (err) {
+                    } catch {
                       toast({
                         title: "Failed to copy",
                         description: "Could not copy link to clipboard",
@@ -321,11 +316,9 @@ export default function PublicProfilePage() {
             </div>
           )}
 
-          {watched?.length === 0 && topSeries?.length === 0 && watchlist?.length === 0 && (
             <div className="text-center py-16 text-muted-foreground">
-              <p>This user hasn't added any content yet.</p>
+              <p>This user has not added any content yet.</p>
             </div>
-          )}
         </div>
       </main>
     </div>

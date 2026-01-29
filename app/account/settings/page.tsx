@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, User, Lock, Mail, Trash2, Loader2, Globe, Share2 } from 'lucide-react'
@@ -58,36 +58,31 @@ export default function SettingsPage() {
     loading: false,
   })
 
-  useEffect(() => {
-    loadUser()
-    loadPublicProfile()
-  }, [])
-
-  const loadUser = async () => {
+  const loadUser = useCallback(async () => {
     try {
-      const { data, error } = await authClient.getSession()
-      if (error || !data?.user) {
+      const { data: sessionData, error } = await authClient.getSession()
+      if (error || !sessionData?.user) {
         router.push('/auth/sign-in')
         return
       }
-      setUser(data.user)
-      setProfileForm(prev => ({ ...prev, name: data.user.name || '' }))
+      setUser(sessionData.user)
+      setProfileForm(prev => ({ ...prev, name: sessionData.user.name || '' }))
     } catch (error) {
       console.error('Failed to load user:', error)
       router.push('/auth/sign-in')
     } finally {
       setLoading(false)
     }
-  }
+  }, [router])
 
   const refreshUser = async () => {
-    const { data } = await authClient.getSession()
-    if (data?.user) {
-      setUser(data.user)
+    const { data: sessionData } = await authClient.getSession()
+    if (sessionData?.user) {
+      setUser(sessionData.user)
     }
   }
 
-  const loadPublicProfile = async () => {
+  const loadPublicProfile = useCallback(async () => {
     try {
       const response = await fetch('/api/profile')
       if (response.ok) {
@@ -108,7 +103,12 @@ export default function SettingsPage() {
     } catch (error) {
       console.error('Failed to load public profile:', error)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    loadUser()
+    loadPublicProfile()
+  }, [loadUser, loadPublicProfile])
 
   const handleUpdatePublicProfile = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -164,10 +164,10 @@ export default function SettingsPage() {
     setProfileForm(prev => ({ ...prev, loading: true }))
 
     try {
-      const { data, error } = await authClient.updateUser({
+      const { error } = await authClient.updateUser({
         name: profileForm.name,
       })
-
+      
       if (error) throw error
 
       await refreshUser()
@@ -196,12 +196,12 @@ export default function SettingsPage() {
     setPasswordForm(prev => ({ ...prev, loading: true }))
 
     try {
-      const { data, error } = await authClient.changePassword({
+      const { error } = await authClient.changePassword({
         newPassword: passwordForm.newPassword,
         currentPassword: passwordForm.currentPassword,
         revokeOtherSessions: passwordForm.revokeOtherSessions,
       })
-
+      
       if (error) throw error
 
       setMessage({ type: 'success', text: 'Password changed successfully!' })
@@ -297,7 +297,7 @@ export default function SettingsPage() {
                   {!publicProfileForm.exists && (
                     <Alert>
                       <AlertDescription>
-                        You haven't created a public profile yet. Fill out the form below to create one and get your shareable profile URL!
+                        You haven&apos;t created a public profile yet. Fill out the form below to create one and get your shareable profile URL!
                       </AlertDescription>
                     </Alert>
                   )}

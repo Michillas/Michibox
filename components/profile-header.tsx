@@ -44,7 +44,7 @@ export function ProfileHeader({
         title: "Link copied!",
         description: "Profile URL copied to clipboard",
       })
-    } catch (err) {
+    } catch {
       toast({
         title: "Failed to copy",
         description: "Could not copy link to clipboard",

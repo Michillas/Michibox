@@ -73,6 +73,7 @@ export function ContentRow({
   }, [])
 
   const throttledUpdateScrollButtons = useMemo(
+    // eslint-disable-next-line react-hooks/refs
     () => throttle(updateScrollButtons, 100),
     [updateScrollButtons]
   )
