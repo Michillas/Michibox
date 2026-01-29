@@ -4,9 +4,10 @@ import React from "react"
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import useSWR, { mutate } from 'swr'
-import { Search, User, Loader2, Popcorn, LogOut, X, Minus } from 'lucide-react'
+import { Search, User, Loader2, LogOut, X, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -186,7 +187,13 @@ export default function Home() {
             {/* Logo - Profile Style */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0 group">
               <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 p-1.5 sm:p-2 shadow-lg shadow-primary/20">
-                <Popcorn className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
+                <Image 
+                  src="/icon.svg" 
+                  alt="Michibox Logo" 
+                  width={24} 
+                  height={24} 
+                  className="h-5 w-5 sm:h-6 sm:w-6"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-base sm:text-lg font-black text-foreground leading-none manga-title">michibox</span>
@@ -397,7 +404,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 p-2 shadow-lg shadow-primary/20">
-                  <Popcorn className="h-5 w-5 text-primary-foreground" />
+                  <Image 
+                    src="/icon.svg" 
+                    alt="Michibox Logo" 
+                    width={20} 
+                    height={20} 
+                    className="h-5 w-5"
+                  />
                 </div>
                 <div>
                   <span className="text-lg font-bold text-foreground block manga-title">Michibox</span>

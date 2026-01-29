@@ -4,8 +4,9 @@ import React from "react"
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import useSWR, { mutate } from 'swr'
-import { ArrowLeft, Popcorn, Search, Loader2 } from 'lucide-react'
+import { ArrowLeft, Search, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -289,7 +290,13 @@ export default function ProfilePage() {
               </Link>
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 p-1.5 sm:p-2 shadow-lg shadow-primary/20">
-                  <Popcorn className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
+                  <Image 
+                    src="/icon.svg" 
+                    alt="Michibox Logo" 
+                    width={24} 
+                    height={24} 
+                    className="h-5 w-5 sm:h-6 sm:w-6"
+                  />
                 </div>
                 <div>
                   <h1 className="text-base sm:text-lg lg:text-xl font-bold text-foreground manga-title">michibox</h1>
