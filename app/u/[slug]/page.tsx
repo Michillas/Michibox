@@ -316,9 +316,11 @@ export default function PublicProfilePage() {
             </div>
           )}
 
-            <div className="text-center py-16 text-muted-foreground">
-              <p>This user has not added any content yet.</p>
-            </div>
+            {watched && topSeries && watchlist && watchedTitles.length === 0 && topSeries.length === 0 && watchlistTitles.length === 0 && (
+              <div className="text-center py-16 text-muted-foreground">
+                <p>This user has not added any content yet.</p>
+              </div>
+            )}
         </div>
       </main>
     </div>
