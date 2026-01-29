@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { User, Settings, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { authClient } from '@/lib/auth/client'
+import { signOut } from '@/app/auth/sign-out/actions'
 import { useRouter } from 'next/navigation'
 
 export function UserMenu() {
@@ -13,9 +14,7 @@ export function UserMenu() {
   const router = useRouter()
 
   const handleLogout = async () => {
-    await authClient.signOut()
-    router.push('/auth/sign-in')
-    router.refresh()
+    await signOut()
   }
 
   if (!session.data?.user) {
