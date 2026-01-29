@@ -397,7 +397,7 @@ export default function SettingsPage() {
                     <div className="space-y-0.5">
                       <Label htmlFor="is_public" className="text-base">Public Profile</Label>
                       <p className="text-sm text-muted-foreground">
-                        Allow others to view your profile, watched content, and top series
+                        Allow others to view your profile, watched content, and top titles
                       </p>
                     </div>
                     <Switch
@@ -638,7 +638,7 @@ export default function SettingsPage() {
                                 <li>Your profile information</li>
                                 <li>Your watchlist</li>
                                 <li>Your watched history</li>
-                                <li>Your top series</li>
+                                <li>Your top titles</li>
                               </ul>
                             </AlertDialogDescription>
                           </AlertDialogHeader>

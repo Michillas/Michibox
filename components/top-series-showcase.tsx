@@ -57,14 +57,14 @@ export function TopSeriesShowcase({ series = [], onRemove, onReorder, onAddClick
             <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-accent-foreground" />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-foreground">Top 5 Series</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Top 5 Titles</h2>
             <p className="text-xs sm:text-sm text-muted-foreground font-semibold">My all-time favorites</p>
           </div>
         </div>
         {!readonly && series.length < 5 && onAddClick && (
           <Button onClick={onAddClick} size="sm" className="gap-2 shadow-sm hover:shadow-md active:scale-[0.98] transition-all self-start sm:self-auto">
             <Plus className="w-4 h-4" />
-            <span className="hidden xs:inline">Add Series</span>
+            <span className="hidden xs:inline">Add Title</span>
             <span className="xs:hidden">Add</span>
           </Button>
         )}

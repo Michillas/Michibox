@@ -116,7 +116,7 @@ export function ProfileHeader({
               <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{topSeriesCount}</div>
-            <div className="text-xs md:text-sm text-muted-foreground">Top Series</div>
+            <div className="text-xs md:text-sm text-muted-foreground">Top Titles</div>
           </div>
         </div>
       </div>

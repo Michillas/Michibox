@@ -262,13 +262,28 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      {/* Header - Manga Window Style */}
+      <header className="sticky top-0 z-50 bg-background border-b-3 border-border">
+        {/* Window Title Bar */}
+        <div className="bg-secondary border-b-2 border-border px-3 sm:px-4 lg:px-6 py-1.5">
+          <div className="mx-auto max-w-6xl flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              michibox.exe — マイプロフィール
+            </span>
+            <div className="flex items-center gap-1">
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">−</div>
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">□</div>
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">×</div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Main Header */}
         <div className="mx-auto max-w-6xl px-3 sm:px-4 lg:px-6">
           <div className="flex items-center justify-between gap-2 sm:gap-4 h-14 sm:h-16">
             <div className="flex items-center gap-2 sm:gap-4">
               <Link href="/">
-                <Button variant="ghost" size="icon" className="rounded-xl h-9 w-9 sm:h-10 sm:w-10">
+                <Button variant="outline" size="icon" className="h-9 w-9 sm:h-10 sm:w-10">
                   <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </Link>
@@ -288,23 +303,23 @@ export default function ProfilePage() {
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="Search to add..."
+                  placeholder="SEARCH TO ADD..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="pl-10 h-9 bg-secondary/50 border-border/50 hover:border-border transition-colors rounded-xl text-foreground placeholder:text-muted-foreground"
+                  className="pl-10 h-9"
                 />
               </div>
-              <Button onClick={handleSearch} disabled={isSearching} size="sm" className="rounded-xl">
-                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
+              <Button onClick={handleSearch} disabled={isSearching} size="sm">
+                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'SEARCH'}
               </Button>
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="icon" 
-                className="sm:hidden rounded-xl h-9 w-9"
+                className="sm:hidden h-9 w-9"
                 onClick={() => setShowSearch(true)}
               >
                 <Search className="h-4 w-4" />

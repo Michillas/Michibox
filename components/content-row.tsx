@@ -89,9 +89,13 @@ export function ContentRow({
   if (isLoading) {
     return (
       <div className="space-y-3 sm:space-y-4">
-        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground px-1">{title}</h2>
-        <div className="flex items-center justify-center py-8 sm:py-12">
-          <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-muted-foreground" />
+        {/* Manga-style section header */}
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-6 bg-foreground" />
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-foreground uppercase tracking-wider">{title}</h2>
+        </div>
+        <div className="flex items-center justify-center py-8 sm:py-12 border-2 border-border">
+          <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-foreground" />
         </div>
       </div>
     )
@@ -101,31 +105,41 @@ export function ContentRow({
 
   return (
     <div className="space-y-3 sm:space-y-4 content-row">
-      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground px-1">{title}</h2>
+      {/* Manga-style section header with thick accent bar */}
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-7 bg-foreground" />
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-foreground uppercase tracking-wider">{title}</h2>
+        <div className="flex-1 h-0.5 bg-border" />
+      </div>
+      
       <div className="group relative gpu-accelerate">
-        {/* Scroll Buttons */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className={cn(
-            'absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100',
-            !canScrollLeft && 'hidden'
-          )}
-          onClick={() => scroll('left')}
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className={cn(
-            'absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-background/80 backdrop-blur-sm opacity-0 transition-opacity group-hover:opacity-100',
-            !canScrollRight && 'hidden'
-          )}
-          onClick={() => scroll('right')}
-        >
-          <ChevronRight className="h-5 w-5" />
-        </Button>
+        {/* Scroll Buttons - Manga Style */}
+        <div className="absolute left-0 top-1/2 z-10 -translate-y-1/2">
+          <Button
+            variant="outline"
+            size="icon"
+            className={cn(
+              'opacity-0 transition-opacity group-hover:opacity-100',
+              !canScrollLeft && 'hidden'
+            )}
+            onClick={() => scroll('left')}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+        </div>
+        <div className="absolute right-0 top-1/2 z-10 -translate-y-1/2">
+          <Button
+            variant="outline"
+            size="icon"
+            className={cn(
+              'opacity-0 transition-opacity group-hover:opacity-100',
+              !canScrollRight && 'hidden'
+            )}
+            onClick={() => scroll('right')}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </Button>
+        </div>
 
         {/* Scrollable Content */}
         <div
@@ -142,17 +156,17 @@ export function ContentRow({
             return (
               <div
                 key={item.id}
-                className="group/card relative flex-shrink-0 w-32 sm:w-36 lg:w-40 gpu-accelerate manga-texture"
+                className="group/card relative flex-shrink-0 w-32 sm:w-36 lg:w-40 gpu-accelerate"
               >
-                {/* Poster */}
-                <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-muted shadow-[0_4px_12px_-4px_rgba(0,0,0,0.12)] group-hover/card:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.18)] transition-all duration-300">
+                {/* Poster - Manga Panel Style */}
+                <div className="relative aspect-[2/3] overflow-hidden bg-muted border-2 border-border shadow-[3px_3px_0_var(--border)] group-hover/card:shadow-[5px_5px_0_var(--border)] group-hover/card:translate-x-[-2px] group-hover/card:translate-y-[-2px] transition-all duration-200">
                   {item.primaryImage?.url ? (
                     <Image
                       src={item.primaryImage.url}
                       alt={item.primaryTitle}
                       fill
                       sizes="(max-width: 640px) 128px, (max-width: 1024px) 144px, 160px"
-                      className="object-cover transition-transform duration-300 group-hover/card:scale-105"
+                      className="object-cover transition-transform duration-300 group-hover/card:scale-105 grayscale-[30%] group-hover/card:grayscale-0"
                       loading="lazy"
                       quality={40}
                       placeholder="blur"
@@ -160,25 +174,25 @@ export function ContentRow({
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center bg-secondary">
-                      <span className="text-3xl text-muted-foreground">?</span>
+                      <span className="text-3xl text-muted-foreground font-black">?</span>
                     </div>
                   )}
 
-                  {/* Overlay on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                  {/* Overlay on Hover - Manga Style */}
+                  <div className="absolute inset-0 bg-background/95 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-2">
                     {/* Rating Badge */}
                     {item.rating && (
-                      <div className="absolute top-2 right-2 bg-primary/95 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full shadow-[0_2px_6px_-1px_rgba(0,0,0,0.2)] backdrop-blur-sm">
+                      <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs font-black px-2 py-1 border border-border uppercase tracking-wider">
                         ★ {item.rating.aggregateRating.toFixed(1)}
                       </div>
                     )}
 
-                    {/* Action Buttons */}
+                    {/* Action Buttons - Manga Style */}
                     <div className="flex gap-2">
                       <Button
                         size="sm"
                         variant={isInWatchlist ? 'secondary' : 'default'}
-                        className="flex-1 h-8 text-xs border-0 rounded-xl shadow-[0_2px_6px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_8px_-2px_rgba(0,0,0,0.2)] transition-all"
+                        className="flex-1 h-8 text-xs"
                         onClick={() => onAddToWatchlist(item)}
                         disabled={isLoading || isInWatchlist}
                       >
@@ -193,7 +207,7 @@ export function ContentRow({
                       <Button
                         size="sm"
                         variant={isWatched ? 'secondary' : 'outline'}
-                        className="flex-1 h-8 text-xs bg-background/80 backdrop-blur-sm border-0 rounded-xl shadow-[0_2px_6px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_8px_-2px_rgba(0,0,0,0.2)] transition-all"
+                        className="flex-1 h-8 text-xs"
                         onClick={() => onAddToWatched(item)}
                         disabled={isLoading || isWatched}
                       >
@@ -206,31 +220,31 @@ export function ContentRow({
                     </div>
                   </div>
 
-                  {/* Status Badges */}
+                  {/* Status Badges - Manga Style */}
                   {(isWatched || isInWatchlist) && (
                     <div className="absolute top-2 left-2 flex flex-col gap-1">
                       {isWatched && (
-                        <div className="bg-primary/95 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full shadow-[0_2px_6px_-1px_rgba(0,0,0,0.2)] backdrop-blur-sm">
-                          ✓ Watched
+                        <div className="bg-primary text-primary-foreground text-[10px] font-black px-1.5 py-0.5 border border-border uppercase tracking-wider">
+                          ✓ SEEN
                         </div>
                       )}
                       {isInWatchlist && !isWatched && (
-                        <div className="bg-secondary/95 text-secondary-foreground text-xs font-medium px-2 py-1 rounded-full shadow-[0_2px_6px_-1px_rgba(0,0,0,0.2)] backdrop-blur-sm">
-                          ⏱ Listed
+                        <div className="bg-secondary text-secondary-foreground text-[10px] font-black px-1.5 py-0.5 border border-border uppercase tracking-wider">
+                          ⏱ LIST
                         </div>
                       )}
                     </div>
                   )}
                 </div>
 
-                {/* Title Info */}
+                {/* Title Info - Manga Style */}
                 <div className="mt-2">
-                  <h3 className="text-xs sm:text-sm font-medium text-foreground line-clamp-2">
+                  <h3 className="text-xs sm:text-sm font-bold text-foreground line-clamp-2 uppercase tracking-wide">
                     {item.primaryTitle}
                   </h3>
-                  <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">
+                  <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 font-medium">
                     {item.startYear}
-                    {item.genres?.length && ` \u2022 ${item.genres[0]}`}
+                    {item.genres?.length && ` • ${item.genres[0]}`}
                   </p>
                 </div>
               </div>

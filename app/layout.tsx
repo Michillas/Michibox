@@ -1,29 +1,29 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Poppins, Outfit } from 'next/font/google'
+import { M_PLUS_1p, Noto_Sans_JP } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { authClient } from '@/lib/auth/client'
 import { NeonAuthUIProvider } from '@neondatabase/auth/react'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const poppins = Poppins({ 
-  weight: ['400', '500', '600', '700', '800'],
-  subsets: ['latin'],
+const mplus = M_PLUS_1p({ 
+  weight: ['400', '500', '700', '800', '900'],
+  subsets: ['latin', 'japanese'],
   display: 'swap',
-  variable: '--font-poppins',
+  variable: '--font-mplus',
 });
 
-const outfit = Outfit({
-  weight: ['300', '400', '500', '600', '700'],
+const notoSansJP = Noto_Sans_JP({
+  weight: ['400', '500', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-outfit',
+  variable: '--font-noto',
 });
 
 export const metadata: Metadata = {
-  title: 'michibox - Your Manga-Style Watch Tracker',
-  description: 'Track the movies and TV shows you have seen and want to watch in a hand-drawn manga style',
+  title: 'michibox - 漫画スタイル',
+  description: 'Track the movies and TV shows you have seen and want to watch in manga style',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${outfit.className} ${poppins.variable} ${outfit.variable} antialiased manga-style`}>
+      <body className={`${mplus.className} ${mplus.variable} ${notoSansJP.variable} antialiased manga-style`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

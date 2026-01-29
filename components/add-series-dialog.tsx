@@ -54,9 +54,9 @@ export function AddSeriesDialog({ open, onOpenChange, onSelect, existingIds, loa
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg bg-card border-border">
         <DialogHeader>
-          <DialogTitle className="text-foreground">Add to Top Series</DialogTitle>
+          <DialogTitle className="text-foreground">Add to Top Titles</DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Search for a TV series to add to your top 5
+            Search for a movie or series to add to your top 5
           </DialogDescription>
         </DialogHeader>
 

@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import useSWR, { mutate } from 'swr'
-import { Search, User, Loader2, Popcorn, LogOut } from 'lucide-react'
+import { Search, User, Loader2, Popcorn, LogOut, X, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -158,36 +158,57 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl shadow-[0_2px_12px_-4px_rgba(0,0,0,0.1)]">
+      {/* Header - Manga Window Style */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b-3 border-border">
+        {/* Window Title Bar */}
+        <div className="bg-secondary border-b-2 border-border px-3 sm:px-4 lg:px-6 py-1.5">
+          <div className="mx-auto max-w-7xl flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              michibox.exe — 漫画スタイル
+            </span>
+            <div className="flex items-center gap-1">
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">
+                <Minus className="w-2.5 h-2.5" />
+              </div>
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center text-[10px]">
+                □
+              </div>
+              <div className="w-4 h-4 border border-border bg-background flex items-center justify-center">
+                <X className="w-2.5 h-2.5" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Main Header */}
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="flex items-center justify-between gap-2 sm:gap-4 h-14 sm:h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-1.5 sm:p-2 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.15)]">
+            {/* Logo - Profile Style */}
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0 group">
+              <div className="flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 p-1.5 sm:p-2 shadow-lg shadow-primary/20">
                 <Popcorn className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
               </div>
               <div className="flex flex-col">
-                <span className="text-base sm:text-lg font-bold text-foreground leading-none manga-title">michibox</span>
-                <span className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">手描きスタイル</span>
+                <span className="text-base sm:text-lg font-black text-foreground leading-none manga-title">michibox</span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">漫画スタイル</span>
               </div>
             </Link>
 
-            {/* Search - Hidden on mobile, shown as icon */}
+            {/* Search - Manga Style */}
             <div className="hidden md:flex flex-1 max-w-md lg:max-w-xl">
               <div className="relative flex gap-2 w-full">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
-                    placeholder="Search movies, series..."
+                    placeholder="SEARCH MOVIES, SERIES..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="pl-10 h-9 bg-secondary/30 border-0 hover:bg-secondary/50 transition-colors text-foreground placeholder:text-muted-foreground rounded-2xl shadow-[inset_0_2px_6px_-2px_rgba(0,0,0,0.1)]"
+                    className="pl-10 h-9 bg-background uppercase placeholder:normal-case"
                   />
                 </div>
-                <Button onClick={handleSearch} disabled={isSearching} size="sm" className="rounded-2xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)]">
-                  {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
+                <Button onClick={handleSearch} disabled={isSearching} size="sm">
+                  {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'SEARCH'}
                 </Button>
               </div>
             </div>
@@ -197,7 +218,7 @@ export default function Home() {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="md:hidden rounded-2xl h-9 w-9 hover:shadow-[0_2px_6px_-2px_rgba(0,0,0,0.1)]"
+                className="md:hidden h-9 w-9"
                 onClick={() => setShowSearch(true)}
               >
                 <Search className="h-4 w-4" />
@@ -209,10 +230,19 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Search Results Overlay */}
+      {/* Search Results Overlay - Manga Style */}
       {showSearch && (
-        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl pt-14 sm:pt-16 overflow-auto manga-grain">
-          <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+        <div className="fixed inset-0 z-40 bg-background pt-[88px] sm:pt-[104px] overflow-auto">
+          {/* Halftone pattern overlay */}
+          <div 
+            className="fixed inset-0 pointer-events-none opacity-5"
+            style={{
+              backgroundImage: 'radial-gradient(circle, var(--foreground) 1px, transparent 1px)',
+              backgroundSize: '8px 8px',
+            }}
+          />
+          
+          <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8 relative">
             {/* Mobile Search Bar */}
             <div className="md:hidden mb-4 relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -222,18 +252,22 @@ export default function Home() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 autoFocus
-                className="pl-10 h-11 bg-secondary/30 border-0 rounded-2xl shadow-[inset_0_2px_6px_-2px_rgba(0,0,0,0.1)]"
+                className="pl-10 h-11 bg-background"
               />
             </div>
+            
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-6">
-              <div>
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">Search Results</h2>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                  {searchResults.length} {searchResults.length === 1 ? 'title' : 'titles'} found{searchQuery && ` for "${searchQuery}"`}
-                </p>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-8 bg-foreground" />
+                <div>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-foreground uppercase tracking-wider">Search Results</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-medium">
+                    {searchResults.length} {searchResults.length === 1 ? 'title' : 'titles'} found{searchQuery && ` for "${searchQuery}"`}
+                  </p>
+                </div>
               </div>
-              <Button variant="outline" size="sm" className="rounded-2xl shadow-[0_2px_6px_-2px_rgba(0,0,0,0.1)]" onClick={() => { setShowSearch(false); setSearchResults([]); setSearchQuery('') }}>
-                Close
+              <Button variant="outline" size="sm" onClick={() => { setShowSearch(false); setSearchResults([]); setSearchQuery('') }}>
+                CLOSE
               </Button>
             </div>
             <TitleGrid
@@ -254,7 +288,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <div className="mt-14 sm:mt-16">
+      <div className="mt-[88px] sm:mt-[104px]">
         <HeroSection
           watchlistIds={watchlistIds}
           onAddToWatchlist={addToWatchlist}
@@ -356,8 +390,8 @@ export default function Home() {
         />
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border/50 bg-secondary/30 mt-12 sm:mt-16">
+      {/* Footer - Manga Panel Style */}
+      <footer className="border-t-3 border-border bg-secondary mt-12 sm:mt-16">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6 py-6 sm:py-8">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -366,22 +400,22 @@ export default function Home() {
                   <Popcorn className="h-5 w-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <span className="text-lg font-bold text-foreground block">Michibox</span>
-                  <span className="text-xs text-muted-foreground">Your Personal Series and Movies Box</span>
+                  <span className="text-lg font-bold text-foreground block manga-title">Michibox</span>
+                  <span className="text-xs text-muted-foreground">Your Personal Series & Movies Box</span>
                 </div>
               </div>
               <Link href="/profile" className="w-full sm:w-auto">
-                <Button variant="outline" size="sm" className="gap-2 rounded-xl w-full sm:w-auto">
+                <Button variant="outline" size="sm" className="gap-2 w-full sm:w-auto">
                   <User className="h-4 w-4" />
-                  View Profile
+                  VIEW PROFILE
                 </Button>
               </Link>
             </div>
-            <div className="border-t border-border/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-              <p className="text-xs sm:text-sm text-muted-foreground">
+            <div className="border-t-2 border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide">
                 Track your favorite movies and TV shows. Data provided by IMDB.
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground uppercase tracking-widest">
                 © 2026 Michibox. All rights reserved.
               </p>
             </div>

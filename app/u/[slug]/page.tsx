@@ -183,7 +183,7 @@ export default function PublicProfilePage() {
                   </div>
                   <div>
                     <span className="font-black text-foreground text-base sm:text-lg">{stats?.topSeriesCount || 0}</span>
-                    <span className="text-muted-foreground ml-1">Top Series</span>
+                    <span className="text-muted-foreground ml-1">Top Titles</span>
                   </div>
                 </div>
               </div>
@@ -193,7 +193,7 @@ export default function PublicProfilePage() {
           {/* Top Series */}
           {topSeries && topSeries.length > 0 && (
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Top Series</h2>
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Top Titles</h2>
               <TopSeriesShowcase
                 series={topSeries}
                 onRemove={() => {}}
