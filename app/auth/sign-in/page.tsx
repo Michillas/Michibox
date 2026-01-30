@@ -3,6 +3,9 @@
 import { useFormState, useFormStatus } from 'react-dom';
 import { signInWithEmail } from './actions';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { authClient } from '@/lib/auth/client';
+import { useEffect } from 'react';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -20,6 +23,20 @@ function SubmitButton() {
 
 export default function SignInPage() {
   const [state, formAction] = useFormState(signInWithEmail, null);
+  const router = useRouter();
+
+  // Refresh session data when component mounts to ensure latest user info
+  useEffect(() => {
+    const refreshSession = async () => {
+      try {
+        await authClient.getSession();
+        router.refresh();
+      } catch (error) {
+        // Silently fail - user may not be logged in yet
+      }
+    };
+    refreshSession();
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-secondary/20 to-background p-4">

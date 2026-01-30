@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSWR, { mutate } from 'swr'
@@ -15,6 +15,7 @@ import { HeroSection } from '@/components/hero-section'
 import { ContentRow } from '@/components/content-row'
 import { TitleGrid } from '@/components/title-grid'
 import { MarkWatchedDialog } from '@/components/mark-watched-dialog'
+import { authClient } from '@/lib/auth/client'
 import type { IMDBTitle } from '@/lib/imdb'
 import type { WatchlistItem, WatchedItem } from '@/lib/db'
 
@@ -27,6 +28,18 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false)
   const [loadingId, setLoadingId] = useState<string | null>(null)
   const [watchedDialogTitle, setWatchedDialogTitle] = useState<IMDBTitle | null>(null)
+
+  // Refresh user session on mount to ensure latest user data is displayed
+  useEffect(() => {
+    const refreshUserSession = async () => {
+      try {
+        await authClient.getSession();
+      } catch (error) {
+        console.error('Failed to refresh session:', error);
+      }
+    };
+    refreshUserSession();
+  }, []);
 
   const { data: watchlist } = useSWR<WatchlistItem[]>('/api/watchlist', fetcher, {
     revalidateOnFocus: false,

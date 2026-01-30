@@ -2,6 +2,7 @@
 
 import { authServer } from '@/lib/auth/server';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function signUpWithEmail(
   _prevState: { error: string } | null,
@@ -34,6 +35,9 @@ export async function signUpWithEmail(
   if (error) {
     return { error: error.message || 'Failed to create account' };
   }
+  
+  // Revalidate all paths to refresh user data across the app
+  revalidatePath('/', 'layout');
   
   redirect('/');
 }

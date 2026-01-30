@@ -2,6 +2,7 @@
 
 import { authServer } from '@/lib/auth/server';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function signInWithEmail(
   _prevState: { error: string } | null,
@@ -22,6 +23,9 @@ export async function signInWithEmail(
   if (error) {
     return { error: error.message || 'Failed to sign in. Try again' };
   }
+  
+  // Revalidate all paths to refresh user data across the app
+  revalidatePath('/', 'layout');
   
   redirect('/');
 }
