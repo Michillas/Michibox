@@ -28,18 +28,25 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false)
   const [loadingId, setLoadingId] = useState<string | null>(null)
   const [watchedDialogTitle, setWatchedDialogTitle] = useState<IMDBTitle | null>(null)
+  const [sessionRefreshed, setSessionRefreshed] = useState(false)
+
+  // Use the session hook to trigger re-render when session changes
+  const { data: session } = authClient.useSession()
 
   // Refresh user session on mount to ensure latest user data is displayed
   useEffect(() => {
-    const refreshUserSession = async () => {
-      try {
-        await authClient.getSession();
-      } catch (error) {
-        console.error('Failed to refresh session:', error);
-      }
-    };
-    refreshUserSession();
-  }, []);
+    if (!sessionRefreshed) {
+      const refreshUserSession = async () => {
+        try {
+          await authClient.getSession();
+          setSessionRefreshed(true)
+        } catch (error) {
+          console.error('Failed to refresh session:', error);
+        }
+      };
+      refreshUserSession();
+    }
+  }, [sessionRefreshed]);
 
   const { data: watchlist } = useSWR<WatchlistItem[]>('/api/watchlist', fetcher, {
     revalidateOnFocus: false,
